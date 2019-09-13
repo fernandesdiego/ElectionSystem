@@ -9,51 +9,63 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-hover table-striped table-bordered" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
+            <th data-sortable="true">
+                @*@Html.DisplayNameFor(model => model.Name)*@
+                Nome
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
+            <th data-sortable="true">
+                @*@Html.DisplayNameFor(model => model.Department)*@
+                Departamento
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Role)
+            <th data-sortable="true">
+                @*@Html.DisplayNameFor(model => model.Role)*@
+                Cargo
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Photo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Election)
+            @*<th>
+                  Html.DisplayNameFor(model => model.Photo)
+                  Foto
+                </th>
+            *@
+            <th data-sortable="true">
+                @*@Html.DisplayNameFor(model => model.Election)*@
+                Eleição
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Photo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Election.Year)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                @*  <td>
+                        @Html.DisplayFor(modelItem => item.Photo)
+                        @{
+                            var imagePath = $"/Image/{item.Photo}";
+                            <img src="@imagePath" style="height:50px"/>
+                        }
+                    </td>
+                *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Election.Year)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

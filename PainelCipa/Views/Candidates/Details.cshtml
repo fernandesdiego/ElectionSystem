@@ -32,13 +32,17 @@
             @Html.DisplayNameFor(model => model.Photo)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Photo)
+@*            @Html.DisplayFor(model => model.Election.Year)*@
+            @{ 
+                var imagePath = $"/Image/{Model.Photo}";
+                <img src="@imagePath" style="height:100px" />
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Election)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Election.Id)
+            @Html.DisplayFor(model => model.Election.Year)
         </dd>
     </dl>
 </div>

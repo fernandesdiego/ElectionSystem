@@ -8,8 +8,7 @@ namespace PainelCipa.Models
 {
     public class PainelCipaContext : DbContext
     {
-        public PainelCipaContext (DbContextOptions<PainelCipaContext> options)
-            : base(options)
+        public PainelCipaContext (DbContextOptions<PainelCipaContext> options) : base(options)
         {
         }
 

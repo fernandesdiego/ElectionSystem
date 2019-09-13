@@ -47,6 +47,7 @@ namespace PainelCipa.Controllers
                 return NotFound();
             }
 
+            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Year", candidate.ElectionID);
             return View(candidate);
         }
 
@@ -98,7 +99,7 @@ namespace PainelCipa.Controllers
             {
                 return NotFound();
             }
-            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Id", candidate.ElectionID);
+            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Year", candidate.ElectionID);
             return View(candidate);
         }
 
@@ -107,8 +108,18 @@ namespace PainelCipa.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Department,Role,Photo,ElectionID")] Candidate candidate)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Department,Role,Photo,ElectionID")] CandidateViewModel candidateViewModel)
         {
+            Candidate candidate = new Candidate()
+            {
+                Id = candidateViewModel.Id,
+                Name = candidateViewModel.Name,
+                Department = candidateViewModel.Department,
+                Role = candidateViewModel.Role,
+                Photo = await _fileManager.SaveImage(candidateViewModel.Photo),
+                ElectionID = candidateViewModel.ElectionID
+            };
+
             if (id != candidate.Id)
             {
                 return NotFound();
@@ -134,7 +145,7 @@ namespace PainelCipa.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Id", candidate.ElectionID);
+            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Year", candidate.ElectionID);
             return View(candidate);
         }
 
@@ -171,6 +182,13 @@ namespace PainelCipa.Controllers
         private bool CandidateExists(int id)
         {
             return _context.Candidate.Any(e => e.Id == id);
+        }
+
+        [HttpGet("/image/{image}")]
+        public IActionResult Image(string image)
+        {
+            var mime = image.Substring(image.LastIndexOf('.') + 1);
+            return new FileStreamResult(_fileManager.ImageStream(image), $"image/{mime}");
         }
     }
 }
