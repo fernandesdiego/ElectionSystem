@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PainelCipa.Models;
 
 namespace PainelCipa.Migrations
 {
     [DbContext(typeof(PainelCipaContext))]
-    partial class PainelCipaContextModelSnapshot : ModelSnapshot
+    [Migration("20190912184803_NewModels")]
+    partial class NewModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,17 +26,17 @@ namespace PainelCipa.Migrations
 
                     b.Property<string>("Department");
 
-                    b.Property<int>("ElectionID");
+                    b.Property<int?>("ElectionId");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Photo");
+                    b.Property<byte[]>("Photo");
 
                     b.Property<string>("Role");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ElectionID");
+                    b.HasIndex("ElectionId");
 
                     b.ToTable("Candidate");
                 });
@@ -95,8 +97,7 @@ namespace PainelCipa.Migrations
                 {
                     b.HasOne("PainelCipa.Models.Election", "Election")
                         .WithMany("Candidates")
-                        .HasForeignKey("ElectionID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ElectionId");
                 });
 
             modelBuilder.Entity("PainelCipa.Models.Vote", b =>

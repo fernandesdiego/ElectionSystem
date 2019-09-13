@@ -17,7 +17,7 @@ namespace PainelCipa.Data
 
         public void Seed()
         {
-            if(_context.Cipa.Any() || _context.Candidate.Any())
+            if(_context.Election.Any() || _context.Candidate.Any())
             {
                 return; //db already populated
             }
@@ -39,7 +39,7 @@ namespace PainelCipa.Data
                 Vote v2 = new Vote(2, vo2, ca1);
                 Vote v3 = new Vote(3, vo3, ca3);
 
-                _context.Cipa.AddRange(c1, c2);
+                _context.Election.AddRange(c1, c2);
                 _context.Candidate.AddRange(ca1, ca2, ca3);
                 _context.Voter.AddRange(vo1, vo2, vo3);
                 _context.Vote.AddRange(v1, v2);

@@ -11,7 +11,7 @@ namespace PainelCipa.Models
     {
         public int Id { get; set; }
         public string CPF { get; set; }
-        public Election Cipa { get; set; }
+        public Election Election { get; set; }
         public bool HasVoted { get; set; }
 
         public Voter()
@@ -23,7 +23,7 @@ namespace PainelCipa.Models
         {
             Id = id;
             CPF = cPF;
-            Cipa = cipa;
+            Election = cipa;
             HasVoted = hasVoted;
         }
     }

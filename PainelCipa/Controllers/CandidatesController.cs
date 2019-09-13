@@ -1,27 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PainelCipa.Data.FileManager;
 using PainelCipa.Models;
+using PainelCipa.ViewModel;
 
 namespace PainelCipa.Controllers
 {
     public class CandidatesController : Controller
     {
         private readonly PainelCipaContext _context;
+        private IFileManager _fileManager;
 
-        public CandidatesController(PainelCipaContext context)
+        public CandidatesController(PainelCipaContext context, IFileManager fileManager)
         {
             _context = context;
+            _fileManager = fileManager;
         }
 
         // GET: Candidates
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Candidate.ToListAsync());
+            var painelCipaContext = _context.Candidate.Include(c => c.Election);
+            return View(await painelCipaContext.ToListAsync());
         }
 
         // GET: Candidates/Details/5
@@ -33,6 +40,7 @@ namespace PainelCipa.Controllers
             }
 
             var candidate = await _context.Candidate
+                .Include(c => c.Election)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (candidate == null)
             {
@@ -45,6 +53,7 @@ namespace PainelCipa.Controllers
         // GET: Candidates/Create
         public IActionResult Create()
         {
+            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Year");
             return View();
         }
 
@@ -53,14 +62,26 @@ namespace PainelCipa.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Department,Role,Photo")] Candidate candidate)
+        public async Task<IActionResult> Create([Bind("Id,Name,Department,Role,Photo,ElectionID")] CandidateViewModel candidateViewModel)
         {
+            Candidate candidate = new Candidate()
+            {
+                Id = candidateViewModel.Id,
+                Name = candidateViewModel.Name,
+                Department = candidateViewModel.Department,
+                Role = candidateViewModel.Role,
+                Photo = await _fileManager.SaveImage(candidateViewModel.Photo),
+                ElectionID = candidateViewModel.ElectionID
+            };
+
             if (ModelState.IsValid)
             {
                 _context.Add(candidate);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Year", candidate.ElectionID);
             return View(candidate);
         }
 
@@ -77,6 +98,7 @@ namespace PainelCipa.Controllers
             {
                 return NotFound();
             }
+            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Id", candidate.ElectionID);
             return View(candidate);
         }
 
@@ -85,7 +107,7 @@ namespace PainelCipa.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Department,Role,Photo")] Candidate candidate)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Department,Role,Photo,ElectionID")] Candidate candidate)
         {
             if (id != candidate.Id)
             {
@@ -112,6 +134,7 @@ namespace PainelCipa.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ElectionID"] = new SelectList(_context.Election, "Id", "Id", candidate.ElectionID);
             return View(candidate);
         }
 
@@ -124,6 +147,7 @@ namespace PainelCipa.Controllers
             }
 
             var candidate = await _context.Candidate
+                .Include(c => c.Election)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (candidate == null)
             {

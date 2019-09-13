@@ -21,7 +21,7 @@ namespace PainelCipa.Controllers
         // GET: Elections
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cipa.ToListAsync());
+            return View(await _context.Election.ToListAsync());
         }
 
         // GET: Elections/Details/5
@@ -32,7 +32,7 @@ namespace PainelCipa.Controllers
                 return NotFound();
             }
 
-            var election = await _context.Cipa
+            var election = await _context.Election
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (election == null)
             {
@@ -72,7 +72,7 @@ namespace PainelCipa.Controllers
                 return NotFound();
             }
 
-            var election = await _context.Cipa.FindAsync(id);
+            var election = await _context.Election.FindAsync(id);
             if (election == null)
             {
                 return NotFound();
@@ -123,7 +123,7 @@ namespace PainelCipa.Controllers
                 return NotFound();
             }
 
-            var election = await _context.Cipa
+            var election = await _context.Election
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (election == null)
             {
@@ -138,15 +138,15 @@ namespace PainelCipa.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var election = await _context.Cipa.FindAsync(id);
-            _context.Cipa.Remove(election);
+            var election = await _context.Election.FindAsync(id);
+            _context.Election.Remove(election);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ElectionExists(int id)
         {
-            return _context.Cipa.Any(e => e.Id == id);
+            return _context.Election.Any(e => e.Id == id);
         }
     }
 }

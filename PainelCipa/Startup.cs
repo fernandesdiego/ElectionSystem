@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using PainelCipa.Models;
 using PainelCipa.Data;
+using PainelCipa.Data.FileManager;
 
 namespace PainelCipa
 {
@@ -41,6 +42,7 @@ namespace PainelCipa
                     //options.UseSqlServer(Configuration.GetConnectionString("PainelCipaContext")));
                     options.UseMySql(Configuration.GetConnectionString("PainelCipaContext"), builder => builder.MigrationsAssembly("PainelCipa")));
             services.AddScoped<SeedingService>();
+            services.AddTransient<IFileManager, FileManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +51,7 @@ namespace PainelCipa
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                seedingService.Seed();
+                //seedingService.Seed();
             }
             else
             {
