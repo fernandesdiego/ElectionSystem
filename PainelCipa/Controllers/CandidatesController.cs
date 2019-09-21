@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PainelCipa.Data.FileManager;
 using PainelCipa.Models;
-using PainelCipa.ViewModel;
+using PainelCipa.Models.ViewModels;
 
 namespace PainelCipa.Controllers
 {
@@ -17,7 +17,7 @@ namespace PainelCipa.Controllers
     {
         private readonly PainelCipaContext _context;
         private IFileManager _fileManager;
-
+        
         public CandidatesController(PainelCipaContext context, IFileManager fileManager)
         {
             _context = context;
@@ -77,6 +77,7 @@ namespace PainelCipa.Controllers
 
             if (ModelState.IsValid)
             {
+               
                 _context.Add(candidate);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

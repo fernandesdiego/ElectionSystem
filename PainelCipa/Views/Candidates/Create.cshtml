@@ -14,23 +14,23 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Department" class="control-label"></label>
-                <input asp-for="Department" class="form-control" />
+                <input asp-for="Department" class="form-control" required />
                 <span asp-validation-for="Department" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
+                <input asp-for="Role" class="form-control" required />
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Photo" class="control-label"></label>
                 @*<input asp-for="Photo" class="form-control" />*@
-                <input asp-for="Photo" type="file" name="Photo" id="Photo" class="form-control" />
+                <input asp-for="Photo" type="file" name="Photo" id="Photo" class="form-control" required />
                 <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -51,4 +51,13 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <text>
+            $(document).ready(function() {
+            alert('@ViewData.ModelState["Error"].Errors.First().ErrorMessage');
+            });
+        </text>
+    }
 }

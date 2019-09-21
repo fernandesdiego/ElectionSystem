@@ -4,16 +4,26 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PainelCipa.Models;
 using PainelCipa.Models.ViewModels;
 
 namespace PainelCipa.Controllers
 {
+    
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly PainelCipaContext _context;
+
+        public HomeController(PainelCipaContext context)
         {
-            return View();
+            _context = context;
+
+        }
+        public async Task<IActionResult> Index()
+        {
+            var painelCipaContext = _context.Election.Include(c => c.Candidates);
+            return View(await painelCipaContext.ToListAsync());            
         }
 
         public IActionResult About()

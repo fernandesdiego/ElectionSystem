@@ -1,21 +1,27 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.ComponentModel;
 
 namespace PainelCipa.Models
 {
     public class Candidate { 
 
         public int Id { get; set; }
+        [DisplayName("Nome")]
         public string Name { get; set; }
+        [DisplayName("Departamento")]
         public string Department { get; set; }
+        [DisplayName("Cargo")]
         public string Role { get; set; }
-         
+        [DisplayName("Foto")]
         public string Photo { get; set; }
         public virtual Election Election { get; set; }
+        [DisplayName("Eleição")]
         public int ElectionID { get; set; }
         public ICollection<Vote> Votes { get; set; } = new List<Vote>();
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PainelCipa.Models
 {
@@ -12,7 +13,9 @@ namespace PainelCipa.Models
         public int Id { get; set; }
         public int Year { get; set; }        
         public ICollection<Candidate> Candidates { get; set; } = new List<Candidate>();
+        [DisplayName("Finalizada")]
         public bool HasFinished { get; set; }
+        [DisplayName("Iniciada")]
         public bool HasStarted { get; set; }
 
         public Election()

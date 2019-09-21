@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using PainelCipa.Models;
 
-namespace PainelCipa.ViewModel
+namespace PainelCipa.Models.ViewModels
 {
     public class CandidateViewModel
     {

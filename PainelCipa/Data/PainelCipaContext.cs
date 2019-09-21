@@ -14,7 +14,6 @@ namespace PainelCipa.Models
 
         public DbSet<Candidate> Candidate { get; set; }
         public DbSet<Election> Election { get; set; }
-        public DbSet<Vote> Vote { get; set; }
-        public DbSet<Voter> Voter { get; set; }
+        public DbSet<Vote> Vote { get; set; }        
     }
 }

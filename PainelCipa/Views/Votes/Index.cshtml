@@ -1,0 +1,69 @@
+﻿@model IEnumerable<PainelCipa.Models.Vote>
+
+@{
+    ViewData["Title"] = "VOTOS";
+}
+
+@{
+
+    List<Candidate> candidates = new List<Candidate>();
+    foreach (var item in Model)
+    {
+        candidates.Add(item.Candidate);
+    }
+    ICollection<Candidate> names = new HashSet<Candidate>(candidates);
+}
+
+
+<div class="page-header" style="border-bottom: 1px solid #eee">
+    <h1>Contagem de votos</h1>
+</div>
+
+<table class="table table-hover table-striped table-bordered" data-toggle="table" data-search="true" data-sortable="true" data-pagination="true">
+    <thead>
+        <tr>
+            <th data-sortable="true">
+                Ano
+            </th>
+            <th data-sortable="true">
+                Candidato
+            </th>
+            <th data-sortable="true">
+                Votos
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in names)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Election.Year)
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @Model.Where(s => s != null && s.Candidate.Name.Equals(item.Name)).Count()
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<div class="page-header" style="border-bottom: 1px solid #eee">
+    <h1>Exportar dados</h1>
+</div>
+<form asp-action="Export">
+    <div class="form-group">
+        <select class="form-control" asp-items="ViewBag.Election"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Exportar" class="btn btn-default" />
+    </div>
+</form>
+
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+}

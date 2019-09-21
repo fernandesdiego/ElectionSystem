@@ -12,19 +12,22 @@ namespace PainelCipa.Models
     {
         public int Id { get; set; }
         [ForeignKey("VoterId")]
-        public virtual Voter Voter { get; set; }
-        public Candidate Candidate { get; set; }
+        public int CPF { get; set; }
+        public virtual Candidate Candidate { get; set; }
+        public int CandidateID { get; set; }
+        public DateTime Moment { get; set; }
 
         public Vote()
         {
 
         }
 
-        public Vote(int id, Voter voter, Candidate candidate)
+        public Vote(int id, int cpf, Candidate candidate, DateTime moment)
         {
             Id = id;
-            Voter = voter;
             Candidate = candidate;
+            CPF = cpf;
+            Moment = moment;
         }
     }
 }
