@@ -54,14 +54,21 @@
 <div class="page-header" style="border-bottom: 1px solid #eee">
     <h1>Exportar dados</h1>
 </div>
-<form asp-action="Export">
+
+
+@using (Html.BeginForm("Export", "Votes", FormMethod.Post))
+{
     <div class="form-group">
-        <select class="form-control" asp-items="ViewBag.Election"></select>
+        <select class="form-control" name="electionYear" asp-items="ViewBag.Election"></select>
     </div>
     <div class="form-group">
         <input type="submit" value="Exportar" class="btn btn-default" />
     </div>
-</form>
+}
+
+
+
+
 
 
 @section Scripts{

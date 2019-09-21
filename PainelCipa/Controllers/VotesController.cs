@@ -22,7 +22,7 @@ namespace PainelCipa.Controllers
         // GET: Votes
         public async Task<IActionResult> Index()
         {
-            var painelCipaContext = _context.Vote.Include(v => v.Candidate).Include(v => v.Candidate.Election);            
+            var painelCipaContext = _context.Vote.Include(v => v.Candidate).Include(v => v.Candidate.Election);
             ViewData["Election"] = new SelectList(_context.Election, "Year", "Year");
             return View(await painelCipaContext.ToListAsync());
         }
@@ -158,22 +158,29 @@ namespace PainelCipa.Controllers
             return _context.Vote.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> Export(int election)
+        [HttpPost]
+        public IActionResult Export(int electionYear)
         {
-            string[] headers = new string[] { "Eleitor", "Candidato", "Horario" };
+            string[] headers = new string[] { "Id", "Eleitor", "Candidato", "Horario" };
             StringBuilder sb = new StringBuilder();
-            var data = from v in _context.Vote
-                       where v.Moment.Year == election
-                       select new
-                       {
-                           v.CPF,
-                           v.Candidate.Name,
-                           v.Moment
-                       };
+
+            //SELECT vote.Id, candidate.Name, election.Year from vote JOIN candidate ON vote.CandidateID = candidate.Id JOIN election ON candidate.ElectionID = election.Id where Election.Id = $var
+
+            var data = from v in _context.Vote where v.Candidate.Election.Year == electionYear select new { v.Id, v.CPF, v.Candidate.Name, v.Moment };
+
+
+            //var data = from v in _context.Vote
+            //           where v.Moment.Year == election.Year
+            //           select new
+            //           {
+            //               v.CPF,
+            //               v.Candidate.Name,
+            //               v.Moment
+            //           };
             var list = data.ToList();
             foreach (var item in list)
             {
-                sb.AppendFormat("{0},{1},{2}", item.CPF, item.Name, item.Moment, Environment.NewLine);
+                sb.AppendFormat("{0},{1},{2},{3}\r\n", item.Id, item.CPF, item.Name, item.Moment);
             }
 
             byte[] buffer = Encoding.ASCII.GetBytes($"{string.Join(",", headers)}\r\n{sb.ToString()}");
