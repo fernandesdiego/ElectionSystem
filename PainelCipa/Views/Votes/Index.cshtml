@@ -10,10 +10,10 @@
     foreach (var item in Model)
     {
         candidates.Add(item.Candidate);
+
     }
     ICollection<Candidate> names = new HashSet<Candidate>(candidates);
 }
-
 
 <div class="page-header" style="border-bottom: 1px solid #eee">
     <h1>Contagem de votos</h1>
@@ -44,7 +44,7 @@
                     @item.Name
                 </td>
                 <td>
-                    @Model.Where(s => s != null && s.Candidate.Name.Equals(item.Name)).Count()
+                    @Model.Where(s => s != null && s.Candidate.Id.Equals(item.Id)).Count()
                 </td>
             </tr>
         }
