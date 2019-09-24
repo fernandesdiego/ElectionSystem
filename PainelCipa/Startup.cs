@@ -13,6 +13,12 @@ using Microsoft.EntityFrameworkCore;
 using PainelCipa.Models;
 using PainelCipa.Data;
 using PainelCipa.Data.FileManager;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Hosting;
 
 namespace PainelCipa
 {
@@ -28,25 +34,35 @@ namespace PainelCipa
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;                
-            });
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options => options.Filters.Add(new AuthorizeFilter()));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+               {
+                   options.AccessDeniedPath = "/Login/";
+                   options.LoginPath = "/Login/";
+                   options.LogoutPath = "/Login/";
+               });
+            services.AddSingleton<IConfigureOptions<CookieAuthenticationOptions>, ConfigureCookie>();
 
             services.AddDbContext<PainelCipaContext>(options =>
                     //options.UseSqlServer(Configuration.GetConnectionString("PainelCipaContext")));
                     options.UseMySql(Configuration.GetConnectionString("PainelCipaContext"), builder => builder.MigrationsAssembly("PainelCipa")));
             services.AddScoped<SeedingService>();
             services.AddTransient<IFileManager, FileManager>();
+            services.AddDistributedMemoryCache();
+
+            //services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromHours(2.0);
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.IsEssential = true;
+            //});
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedingService seedingService)
         {
             if (env.IsDevelopment())
             {
@@ -59,16 +75,20 @@ namespace PainelCipa
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
             });
+
         }
     }
 }

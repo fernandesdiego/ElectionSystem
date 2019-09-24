@@ -16,7 +16,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        <link href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css" rel="stylesheet">        
+        <link href="https://unpkg.com/bootstrap-table@1.15.4/dist/bootstrap-table.min.css" rel="stylesheet">
     </environment>
 </head>
 <body>
@@ -29,16 +29,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PainelCipa</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Painel de eleição CIPA</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>*@
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
                     <li><a asp-area="" asp-controller="Elections" asp-action="Index">Eleições</a></li>
                     <li><a asp-area="" asp-controller="Candidates" asp-action="Index">Candidatos</a></li>
-                </ul>
+                    <li><a asp-area="" asp-controller="Votes" asp-action="Index">Votações</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Login" asp-action="Logout">Sair</a></li>
+                    }
+                </ul>                
             </div>
         </div>
     </nav>
@@ -49,7 +52,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - PainelCipa</p>
+            <p>&copy; 2019 - Vikstar</p>
         </footer>
     </div>
 
@@ -77,5 +80,10 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+
+
+    <div id="dev" style="display:none;">
+        <h1>Developed by <a href="https://www.linkedin.com/in/diego-f/">Diego Fernandes</a></h1>
+    </div>
 </body>
 </html>

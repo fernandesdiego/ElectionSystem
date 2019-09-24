@@ -20,6 +20,7 @@ namespace PainelCipa.Models
         public string Role { get; set; }
         [DisplayName("Foto")]
         public string Photo { get; set; }
+        [DisplayName("Eleição")]
         public virtual Election Election { get; set; }
         [DisplayName("Eleição")]
         public int ElectionID { get; set; }

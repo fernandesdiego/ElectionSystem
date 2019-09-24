@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PainelCipa.Models;
 
 namespace PainelCipa.Migrations
 {
     [DbContext(typeof(PainelCipaContext))]
-    partial class PainelCipaContextModelSnapshot : ModelSnapshot
+    [Migration("20190922193046_AddLogin")]
+    partial class AddLogin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,20 +55,6 @@ namespace PainelCipa.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Election");
-                });
-
-            modelBuilder.Entity("PainelCipa.Models.Login", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Password");
-
-                    b.Property<string>("Username");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Login");
                 });
 
             modelBuilder.Entity("PainelCipa.Models.Vote", b =>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELEICAO_CIPA", "ELEICAO_CIP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PainelCipa", "PainelCipa\PainelCipa.csproj", "{55C0B2EF-26CD-4FF1-B9A3-C4DB6A289BF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthTest", "..\AuthTest\AuthTest.csproj", "{80B6B354-83CA-40B2-B4CC-5D60313614C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{55C0B2EF-26CD-4FF1-B9A3-C4DB6A289BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55C0B2EF-26CD-4FF1-B9A3-C4DB6A289BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55C0B2EF-26CD-4FF1-B9A3-C4DB6A289BF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80B6B354-83CA-40B2-B4CC-5D60313614C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B6B354-83CA-40B2-B4CC-5D60313614C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B6B354-83CA-40B2-B4CC-5D60313614C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B6B354-83CA-40B2-B4CC-5D60313614C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

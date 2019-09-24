@@ -11,6 +11,7 @@ namespace PainelCipa.Models
     {
 
         public int Id { get; set; }
+        [DisplayName("Ano")]
         public int Year { get; set; }        
         public ICollection<Candidate> Candidates { get; set; } = new List<Candidate>();
         [DisplayName("Finalizada")]

@@ -8,12 +8,13 @@ namespace PainelCipa.Models
 {
     public class PainelCipaContext : DbContext
     {
-        public PainelCipaContext (DbContextOptions<PainelCipaContext> options) : base(options)
+        public PainelCipaContext(DbContextOptions<PainelCipaContext> options) : base(options)
         {
         }
 
         public DbSet<Candidate> Candidate { get; set; }
         public DbSet<Election> Election { get; set; }
-        public DbSet<Vote> Vote { get; set; }        
+        public DbSet<Vote> Vote { get; set; }
+        public DbSet<Login> Login { get; set; }
     }
 }

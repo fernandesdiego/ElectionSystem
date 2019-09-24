@@ -70,5 +70,21 @@
         });
     </script>
 
+    <script>
+        const pressed = [];
+        const code = 'developer';
+
+        window.addEventListener('keyup', (e) => {
+            pressed.push(e.key);
+            pressed.splice(0, pressed.length - code.length);
+            const word = pressed.join('');
+
+            if (word === code) {
+                document.getElementById('dev').style.display = 'block';
+                
+            }
+        });
+    </script>
+
 
 }
