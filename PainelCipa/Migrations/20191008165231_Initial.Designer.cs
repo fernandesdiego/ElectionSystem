@@ -9,14 +9,14 @@ using PainelCipa.Models;
 namespace PainelCipa.Migrations
 {
     [DbContext(typeof(PainelCipaContext))]
-    [Migration("20190913000833_NewModel2")]
-    partial class NewModel2
+    [Migration("20191008165231_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("PainelCipa.Models.Candidate", b =>
@@ -57,40 +57,36 @@ namespace PainelCipa.Migrations
                     b.ToTable("Election");
                 });
 
+            modelBuilder.Entity("PainelCipa.Models.Login", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Login");
+                });
+
             modelBuilder.Entity("PainelCipa.Models.Vote", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CandidateId");
+                    b.Property<int>("CPF");
 
-                    b.Property<int?>("VoterId");
+                    b.Property<int>("CandidateID");
+
+                    b.Property<DateTime>("Moment");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CandidateId");
-
-                    b.HasIndex("VoterId");
+                    b.HasIndex("CandidateID");
 
                     b.ToTable("Vote");
-                });
-
-            modelBuilder.Entity("PainelCipa.Models.Voter", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CPF");
-
-                    b.Property<int?>("ElectionId");
-
-                    b.Property<bool>("HasVoted");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ElectionId");
-
-                    b.ToTable("Voter");
                 });
 
             modelBuilder.Entity("PainelCipa.Models.Candidate", b =>
@@ -105,18 +101,8 @@ namespace PainelCipa.Migrations
                 {
                     b.HasOne("PainelCipa.Models.Candidate", "Candidate")
                         .WithMany("Votes")
-                        .HasForeignKey("CandidateId");
-
-                    b.HasOne("PainelCipa.Models.Voter", "Voter")
-                        .WithMany()
-                        .HasForeignKey("VoterId");
-                });
-
-            modelBuilder.Entity("PainelCipa.Models.Voter", b =>
-                {
-                    b.HasOne("PainelCipa.Models.Election", "Election")
-                        .WithMany()
-                        .HasForeignKey("ElectionId");
+                        .HasForeignKey("CandidateID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

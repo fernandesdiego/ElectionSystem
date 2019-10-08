@@ -31,7 +31,7 @@ namespace PainelCipa.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Login login)
         {
-            login.Password = System.Web.Helpers.Crypto.Hash(login.Password, "MD5");
+            login.Password = System.Web.Helpers.Crypto.Hash(login.Password, "MD5").ToLower();
 
             if (_context.Login.Where(l => l.Username == login.Username && l.Password == login.Password).FirstOrDefault() != null)
             {
