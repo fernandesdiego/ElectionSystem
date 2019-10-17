@@ -1,0 +1,19 @@
+﻿<Page x:Class="ClientVotacao.Views.Confirmation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ClientVotacao.Views"
+      mc:Ignorable="d" 
+      Title="Confirmation">
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <Image Name="CandidateImage" Width="Auto" MaxHeight="400"/>
+            <TextBlock Name="CandidateName" FontSize="40" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Name="BackButton" Background="LightYellow" Width="200" Height="40" Content="Voltar" Click="BackButton_Click"/>
+                <Button Name="ConfirmButton" Background="SpringGreen" Width="200" Height="40" Content="Confirmar" Click="ConfirmButton_Click"/>
+            </StackPanel>   
+        </StackPanel>
+    </Grid>
+</Page>

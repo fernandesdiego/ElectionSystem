@@ -1,0 +1,52 @@
+﻿<Page x:Class="ClientVotacao.Views.Intro"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ClientVotacao.Views"
+      mc:Ignorable="d"       
+      Title="Intro">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--ARE U FUCKING KIDDING ME MICROSOFT?-->
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <TextBlock FontSize="60px" HorizontalAlignment="Center">ELEIÇÃO CIPA</TextBlock>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,20" Width="500" FontSize="12">
+                <Run Text="Norma Regulamentadora NR 5" />
+                <LineBreak />
+                <Run Text="CIPA: Comissão Interna de Prevenção de Acidentes" />
+                <LineBreak />
+                <Run Text="Objetivo: a prevenção de acidentes e doenças decorrentes do trabalho, de modo a tornar compatível permanentemente o trabalho com a preservação da vida e a promoção da saúde do trabalhador." />
+                <LineBreak />
+                <Run Text="Devem constituir CIPA, por estabelecimento, e mantê-la em regular funcionamento as empresas privadas, públicas, sociedades de economia mista, órgãos da administração direta e indireta, instituições beneficentes, associações recreativas, cooperativas, bem como outras instituições que admitam trabalhadores como empregados." />
+                <LineBreak />
+                <Run Text="A CIPA é dimensionada por:" />
+                <LineBreak />
+                <Run Text="- Grau de risco" />
+                <LineBreak />
+                <Run Text="- Número de funcionários" />
+                <LineBreak />
+                <Run Text="- Tipo de atividade (CNAE)" />
+                <LineBreak />
+                <Run Text="A CIPA terá reuniões ordinárias mensais, de acordo com o calendário pré-estabelecido." />
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Button Name="StartButton" Click="StartButton_Click" FontSize="30px" Background="MediumSeaGreen">INICIAR</Button>
+        </Grid>
+
+    </Grid>
+</Page>

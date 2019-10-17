@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -185,6 +186,7 @@ namespace PainelCipa.Controllers
             return _context.Candidate.Any(e => e.Id == id);
         }
 
+        [AllowAnonymous]
         [HttpGet("/image/{image}")]
         public IActionResult Image(string image)
         {
